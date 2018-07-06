@@ -7,30 +7,42 @@ intermedian_filename='BelleIntermedian.json'
 output_filename="BelleCertification.json"
 f_in=open(input_filename,'r')
 f_out=open(intermedian_filename,'w')
+#f_in.next()
 
 def line_parser(l_in):
     line_in=l_in.rstrip()
     if line_in.find("{")!=-1 or line_in.find("}")!=-1:
         l_out=line_in
+        #l_out=l_in
+        #print("keep the line the same")
     else:
         line_in=line_in.strip()
         l_out=line_in.replace('=',':')
 
         if l_out.find("+:")!=-1:
+            #l_out=l_out.replace('+:',',')
             l_out=l_out.replace(" ","")
             l_out=l_out.split('+:',1)
+            #print(l_out)
             l_out='LIST_TOKEN_DECORATOR,%s' % (l_out[1])
+            #l_out="LIST_TOKEN_DECORATOR"+","+l_out[1]
         else:
             if l_out.find(":") == -1: #lines without semicolon
                 l_out='"%s":' % (l_out)
+                #l_out="'"+l_out+"'"+":"
             elif l_out.find("#")!=-1: #lines with the "#"
                 l_out=l_out.split(" - ",1)
                 l_out='"%s":"%s"' % (l_out[1], l_out[0]) ###CHECK
+                #l_out="'"+l_out[0]+"'"+":"+"'"+l_out[1]+"'"
             else:
+                #print("spliting by semicolon")
                 l_out=l_out.replace(" ","")
                 l_out=l_out.split(':',1)
                 l_out='"%s":"%s"' % (l_out[0],l_out[1])
+                #l_out="'" + l_out[0] + "'" + ":" + "'"+l_out[1]+"'"
     l_out='%s\n' % (l_out)
+    #l_out=l_out+"\n"
+    #print(l_out)
     return(l_out)
 
 def ListTokenToJson(f_inter,f_final):
@@ -71,6 +83,8 @@ def ListTokenToJson(f_inter,f_final):
     print("ending_ListTokenToJson")
 
 for line in f_in:
+    #print("printing line input for testing")
+    #print(line)
     output_tmp=line_parser(line)
     f_out.write(output_tmp)
 
