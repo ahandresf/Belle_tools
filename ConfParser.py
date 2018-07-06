@@ -25,11 +25,11 @@ def line_parser(l_in):
                 l_out='"%s":' % (l_out)
             elif l_out.find("#")!=-1: #lines with the "#"
                 l_out=l_out.split(" - ",1)
-                l_out='"%s":"%s"' % (l_out[1], l_out[0]) ###CHECK
+                l_out='"%s":"%s",' % (l_out[1], l_out[0]) ###CHECK ###
             else:
                 #l_out=l_out.replace(" ","")
                 l_out=l_out.split(':',1)
-                l_out='"%s":"%s"' % (l_out[0],l_out[1])
+                l_out='"%s":"%s",' % (l_out[0],l_out[1])  ####
     l_out='%s\n' % (l_out)
     return(l_out)
 
@@ -44,21 +44,22 @@ def ListTokenToJson(f_inter,f_final):
         # (YES,YES)
         if(current_line.find("LIST_TOKEN_DECORATOR")!=-1 and next_line.find("LIST_TOKEN_DECORATOR")!=-1):
             l_out_current='"%s",\n' % (current_line.split(",")[1])
-            #l_out_current="'"+current_line.split(",")[1]+"',\n"
         # (YES,NO)
-        elif(current_line.find("LIST_TOKEN_DECORATOR")!=-1 and next_line.find("LIST_TOKEN_DECORATOR")==-1):
-            l_out_current='"%s"]\n' % (current_line.split(",")[1])  #" VMDIRAC"]
-            #l_out_current="'"+current_line.split(",")[1]+"']\n"
+        elif(current_line.find("LIST_TOKEN_DECORATOR")!=-1 and next_line.find("LIST_TOKEN_DECORATOR")==-1): #trick
+            if next_line.find("}")!=-1:
+                l_out_current='"%s"]\n' % (current_line.split(",")[1])  #" VMDIRAC"]
+            else:
+                l_out_current='"%s"],\n' % (current_line.split(",")[1])
         #(NO,YES)
         elif(current_line.find("LIST_TOKEN_DECORATOR")==-1 and next_line.find("LIST_TOKEN_DECORATOR")!=-1):
             l_out_current=current_line.split(":",1)
-            #print(l_out_current)
-            l_out_current='%s:[%s,\n' % (l_out_current[0],l_out_current[1])
-            #l_out_current=l_out_current[0]+":"+"["+l_out_current[1]+",\n"
+            l_out_current='%s:[%s\n' % (l_out_current[0],l_out_current[1])
         #(NO,NO)
         elif(current_line.find("LIST_TOKEN_DECORATOR")==-1 and next_line.find("LIST_TOKEN_DECORATOR")==-1):
-            l_out_current='%s\n' % (current_line)
-            #l_out_current=current_line+"\n"
+            if current_line.find("}")!=-1 and next_line.find("}")==-1:
+                l_out_current='%s,\n' % (current_line)
+            else:
+                l_out_current='%s\n' % (current_line)
         else:
             print("No conditions match the decision tree, ERROR IN THE LOGIC")
 
