@@ -1,8 +1,12 @@
 #!/usr/bin/env python
+#!/usr/bin/env python
+#July 13th 2018
+#By Andres Felipe Alba
+#email: ahandres.fnal@gmail.com
 import json
 
 #input_filename="Test_BelleCertification.json"
-input_filename='BelleCertification.json'
+input_filename='Belle_preprocess_out.json'
 output_filename="Belle_noc.json"
 f_in=open(input_filename,'r')
 f_out=open(output_filename,'w')
@@ -34,4 +38,5 @@ print ("the output file have %s lines" % (counter_lines))
 
 f_in.close()
 f_out.close()
-print("End of the program")
+print('The output file have been generated under the name: "%s"'%(output_filename))
+print("End of the program that delete the comments.\n")

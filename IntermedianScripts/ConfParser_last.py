@@ -1,13 +1,10 @@
 #!/usr/bin/env python
-#July 13th 2018
-#By Andres Felipe Alba
-#email: ahandres.fnal@gmail.com
 import json
 import subprocess
 #input_filename='TestFile.cfg'
 input_filename='BelleCertification.cfg'
-intermedian_filename='Tmp_preprocess_file.json'
-output_filename="Belle_preprocess_out.json"
+intermedian_filename='BelleIntermedian.json'
+output_filename="BelleCertification.json"
 #output_filename="Test_BelleCertification.json"
 f_in=open(input_filename,'r')
 f_out=open(intermedian_filename,'w')
@@ -136,5 +133,4 @@ ListTokenToJson(f_inter,f_final)
 #print("final_tell",f_final.tell())
 f_inter.close()
 f_final.close()
-print('The output file have been generated under the name: "%s" and a temporary file under the name: "%s"'%(output_filename,intermedian_filename))
-print("End of the program that preprocess the cfg file\n")
+print("End of the program")

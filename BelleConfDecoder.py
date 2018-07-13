@@ -1,14 +1,20 @@
 #!/usr/bin/env python
+#!/usr/bin/env python
+#July 13th 2018
+#By Andres Felipe Alba
+#email: ahandres.fnal@gmail.com
 import json
 input_file_name='Belle_noc.json'
-output_filename='AccessProtocols.json'
-f_input=open(input_file_name)
-f_output=open(output_filename,'w')
-f_data=open("data_process.json",'w')
-f_data_total=open("data_process_intermedian.json",'w')
+#output_filename='AccessProtocols.json'
+output_total_filename="data_process_total.json"
 
+f_input=open(input_file_name)
+#f_output=open(output_filename,'w')
+f_data=open("data_process.json",'w')
+f_data_total=open(output_total_filename,'w')
 data=json.load(f_input)
 f_input.close()
+
 StorageElements=data['Resources']['StorageElements']
 StorageElements.pop('ChecksumType')
 StorageElements.pop('DefaultProtocols')
@@ -47,31 +53,6 @@ for my_key in StorageElements: #iterating into a dictionary of sites
 
 json.dump(my_dic, f_data_total, indent=2)
 
-for key_dic in my_dic:
-    my_List=[]
-    for element in my_dic[key_dic]:
-        my_List.append({'Host':element['Host'],
-                        'Port':element['Port'],
-                        'Protocol':element['Protocol'],
-                        'Path':element['Path'],
-                        #'WSUrl':element['WSUrl']
-                        #PluginName
-                        #spaceToken
-                        'AccessProtocol':element['AccessProtocol']
-                        })
-    my_dic[key_dic]=my_List
-json.dump(my_dic, f_data, indent=2)
-
-
-    #f_output.write('""%s":"%s"') %(key_dic,my_List)
-
-f_output.write(json.dumps(my_dic))
 f_data_total.close()
-f_output.close()
 f_data.close()
-#print(my_dic)
-
-
-
-#print(my_dic['CESNET-TMP-SE'])
-#print("\n")
+print('The output file have been generated under the name: "%s"'%(output_total_filename))
