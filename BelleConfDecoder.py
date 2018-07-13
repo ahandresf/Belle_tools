@@ -10,7 +10,7 @@ output_total_filename="data_process_total.json"
 
 f_input=open(input_file_name)
 #f_output=open(output_filename,'w')
-f_data=open("data_process.json",'w')
+#f_data=open("data_process.json",'w')
 f_data_total=open(output_total_filename,'w')
 data=json.load(f_input)
 f_input.close()
@@ -54,5 +54,5 @@ for my_key in StorageElements: #iterating into a dictionary of sites
 json.dump(my_dic, f_data_total, indent=2)
 
 f_data_total.close()
-f_data.close()
+#f_data.close()
 print('The output file have been generated under the name: "%s"'%(output_total_filename))
