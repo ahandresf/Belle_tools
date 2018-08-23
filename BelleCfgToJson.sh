@@ -5,7 +5,12 @@ if [ $? -eq 0 ]
     if [ $? -eq 0 ]
       then python BelleConfDecoder.py
         if [ $? -eq 0 ]
-          then "sucessful excecution"
+          then python JsonToRucio.py
+              if [ $? -eq 0 ]
+                then echo "sucessful excecution"
+              else
+                echo "fourth script fail: JsonToRucio.py"
+              fi
         else
           echo "third script fail: BelleConfDecoder.py"
         fi

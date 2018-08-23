@@ -45,5 +45,6 @@ for key in dict1:
     out_dic[key]={'params': new_dict}
 
 json.dump(out_dic, file_output, indent=2)
+print("your output is: %s"%(output_filename))
 file_input.close()
 file_output.close()
